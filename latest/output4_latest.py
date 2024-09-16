@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from utils_functions import write_csv_to_location
-from pyspark.sql.functions import col, sum, round, desc
+from pyspark.sql.functions import col, round
 from pyspark.sql.window import Window
 from pyspark.sql.functions import rank
 ### Output #4 - **Department Breakdown**
@@ -12,6 +12,8 @@ from pyspark.sql.functions import rank
 # to see who best deserves the bonus. In your opinion, who should get it and why?
 
 # Initialize a SparkSession
+filename = "dataset_exercise4.csv"
+output_folder = "codc-interviews/latest/top_3"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
 df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
@@ -30,6 +32,5 @@ top_employees = df_ranked.select("name", "area", "sales_amount","success_rate") 
 
 top_employees.show()
 
-filename = "dataset_exercise4.csv"
-output_folder = "codc-interviews/latest/top_3"
+
 write_csv_to_location(top_employees, output_folder, filename)

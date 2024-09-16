@@ -1,19 +1,20 @@
 from pyspark.sql import SparkSession
 from utils_functions import write_csv_to_location
-from pyspark.sql.functions import col, sum, round, desc
+from pyspark.sql.functions import col, sum, rank
 from pyspark.sql.window import Window
-from pyspark.sql.functions import rank
-### Output #5 - **Department Breakdown**
 
-# Top 3 most sold products per department in the Netherlands
+# ### Output #5 - **Top 3 most sold products per department in the Netherlands**
+# - The output directory should be called **top_3_most_sold_per_department_netherlands** 
+# and you must use PySpark to save only to one **CSV** file.
 
+filename = "dataset_exercise5.csv"
+output_folder = "codc-interviews/latest/top_3_most_sold_per_department_netherlands"
 # Initialize a SparkSession
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
 df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
 df2 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_two.csv')
 df3 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_three.csv')
-
 
 # Filter data for only the Netherlands
 df3_netherlands = df3.filter(col("country") == "Netherlands")
@@ -31,9 +32,8 @@ windowSpec = Window.partitionBy("area").orderBy(col("total_quantity").desc())
 df_ranked = df_grouped.withColumn("rank", rank().over(windowSpec)).filter(col("rank") <= 3)
 
 # Show the result
-df_ranked.select("area", "product_sold", "total_quantity", "rank").orderBy("area", "rank").show()
+df_ranked = df_ranked.select("area", "product_sold", "total_quantity", "rank").orderBy("area", "rank")
 
+df_ranked.show()
 
-# filename = "dataset_exercise5.csv"
-# output_folder = "codc-interviews/latest/top_3_most_sold_per_department_netherlands"
-# write_csv_to_location(top_employees, output_folder, filename)
+write_csv_to_location(df_ranked, output_folder, filename)
