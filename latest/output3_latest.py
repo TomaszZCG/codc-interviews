@@ -1,11 +1,14 @@
+""" 
+Output #3 - **Department Breakdown**
+The stakeholders want to have a breakdown of the sales amount of each department and 
+they also want to see the total percentage of calls_succesfful/calls_made per department. 
+The amount of money and percentage should be easily readable.
+"""
+
 from pyspark.sql import SparkSession
 from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col, sum, round
-### Output #3 - **Department Breakdown**
 
-# The stakeholders want to have a breakdown of the sales amount of each department and 
-# they also want to see the total percentage of calls_succesfful/calls_made per department. 
-# The amount of money and percentage should be easily readable.
 
 filename = "dataset_exercise3.csv"
 output_folder = "codc-interviews/latest/department_breakdown"

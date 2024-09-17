@@ -1,15 +1,17 @@
+"""
+Output #4 - **Department Breakdown**
+The management team wants to reward it's best employees with a bonus
+and therefore it wants to know the name of the top 3 best performers per department. 
+That is the ones that have a percentage of calls_succesfful/calls_made higher than 75%. 
+It also wants to know the sales amount of these employees
+to see who best deserves the bonus. In your opinion, who should get it and why?
+"""
+
 from pyspark.sql import SparkSession
 from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col, round
 from pyspark.sql.window import Window
 from pyspark.sql.functions import rank
-### Output #4 - **Department Breakdown**
-
-# The management team wants to reward it's best employees with a bonus
-# and therefore it wants to know the name of the top 3 best performers per department. 
-# That is the ones that have a percentage of calls_succesfful/calls_made higher than 75%. 
-# It also wants to know the sales amount of these employees
-# to see who best deserves the bonus. In your opinion, who should get it and why?
 
 # Initialize a SparkSession
 filename = "dataset_exercise4.csv"

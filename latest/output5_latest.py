@@ -1,11 +1,14 @@
+"""
+Output #5 - **Top 3 most sold products per department in the Netherlands**
+- The output directory should be called **top_3_most_sold_per_department_netherlands** 
+and you must use PySpark to save only to one **CSV** file. 
+"""
+
 from pyspark.sql import SparkSession
 from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col, sum, rank
 from pyspark.sql.window import Window
 
-# ### Output #5 - **Top 3 most sold products per department in the Netherlands**
-# - The output directory should be called **top_3_most_sold_per_department_netherlands** 
-# and you must use PySpark to save only to one **CSV** file.
 
 filename = "dataset_exercise5.csv"
 output_folder = "codc-interviews/latest/top_3_most_sold_per_department_netherlands"

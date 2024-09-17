@@ -1,12 +1,12 @@
+""" 
+Output #6 - **Who is the best overall salesperson per country**
+The output directory should be called **best_salesperson** and you must use PySpark to save only to one **CSV** file.
+"""
+
 from pyspark.sql import SparkSession
 from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col, sum, rank, round
 from pyspark.sql.window import Window
-
-# Output #6 - **Who is the best overall salesperson per country**
-# - The output directory should be called **best_salesperson** and 
-# you must use PySpark to save only to one **CSV** file.
-
 
 filename = "dataset_exercise6.csv"
 output_folder = "codc-interviews/latest/best_salesperson"

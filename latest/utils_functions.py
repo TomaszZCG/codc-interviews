@@ -1,9 +1,12 @@
+"""coalesce - reduces the number of partitions"""
+
 import os
 import shutil
 from pyspark.sql.functions import col
 import os
 
 def write_csv_to_location(dataframe, location, filename):
+
 
     os.makedirs(location, exist_ok=True)
 
