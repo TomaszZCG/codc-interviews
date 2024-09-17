@@ -29,8 +29,8 @@ def main(file_name):
     df_joined = df1.join(df2, on="id", how="inner")
 
     df_drop = df_joined.drop("cc_n")\
-                    .drop("first_name")\
-                    .drop("last_name")
+                       .drop("first_name")\
+                       .drop("last_name")
 
     df_filtered = filter_data(df_drop)
     df_filtered.show()
