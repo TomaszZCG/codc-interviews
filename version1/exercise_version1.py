@@ -30,6 +30,6 @@ df_drop=df_joined.drop("cc_n")\
 df_filtered = filter_data(df_drop)
 df_filtered.show()
 
-output_folder = "codc-interviews/version1/client_data"  # add parameter
-filename = "dataset_three.csv"  # add parameter
+output_folder = "codc-interviews/version1/client_data"  
+filename = "dataset_three.csv"  
 write_csv_to_location(df_filtered,output_folder,filename)
