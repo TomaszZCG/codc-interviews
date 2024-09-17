@@ -25,10 +25,10 @@ df2 = read_dataset(spark,'dataset_two.csv')
 df_joined = df1.join(df2, on="id", how="inner")
 
 df_drop=df_joined.drop("cc_n")\
-                   .drop("first_name")\
-                   .drop("last_name")
+                 .drop("first_name")\
+                 .drop("last_name")
 
 df_filtered = filter_data(df_drop)
 df_filtered.show()
 
-write_csv_to_location(df_filtered,output_folder,file_name)
+write_csv_to_location(df_filtered, output_folder, file_name)

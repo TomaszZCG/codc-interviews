@@ -12,7 +12,7 @@ from pyspark.sql.functions import col, round
 from pyspark.sql.window import Window
 from pyspark.sql.functions import rank
 
-# Initialize a SparkSession
+
 file_name = "dataset_exercise4.csv"
 output_folder = "top_3"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
@@ -30,7 +30,6 @@ windowSpec = Window.partitionBy("area").orderBy(col("sales_amount").desc())
 df_ranked = df_joined.withColumn("rank", rank().over(windowSpec)).filter(col("rank") <= 3)
 top_employees = df_ranked.select("name", "area", "sales_amount","success_rate") \
                          .orderBy("area", "rank")
-
 top_employees.show()
 
 write_csv_to_location(top_employees, output_folder, file_name)

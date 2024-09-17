@@ -39,7 +39,6 @@ df_splitted = df_splitted.withColumn(
                             when(col("postal_code_check") != "", col("postal_code_temp")).otherwise(col("city_temp")))
 
 df_splitted = df_splitted.select("name","city","postal_code")
-
 df_splitted.show()
 
 write_csv_to_location(df_splitted, output_folder, file_name)
