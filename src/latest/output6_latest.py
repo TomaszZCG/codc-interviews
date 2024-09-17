@@ -23,7 +23,7 @@ window = Window.partitionBy("country").orderBy(col("total_sales").desc())
 
 df_ranked = df_sales_by_country.withColumn("rank", rank().over(window))
 
-""" Filter the result to only get the best salesperson (rank == 1) """
+""" filter the result to only get the best salesperson (rank == 1) """
 df_best_salesperson = df_ranked.filter(col("rank") == 1)
 df_best_salesperson = df_best_salesperson.withColumn('total_sales', round(df_best_salesperson['total_sales'], 2))
 df_best_salesperson.select("country", "name", "total_sales").show()
