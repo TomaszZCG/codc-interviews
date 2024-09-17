@@ -24,7 +24,7 @@ df2 = read_dataset(spark,'dataset_two.csv')
 
 df_joined = df1.join(df2, on="id", how="inner")
 
-df_drop=df_joined.drop("cc_n")\
+df_drop = df_joined.drop("cc_n")\
                  .drop("first_name")\
                  .drop("last_name")
 
