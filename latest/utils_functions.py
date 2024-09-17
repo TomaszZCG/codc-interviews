@@ -1,4 +1,5 @@
-"""coalesce - reduces the number of partitions and lose parallelism
+"""
+coalesce - reduces the number of partitions and lose parallelism
 Function write_csv_to_location takes 3 parameters: dataframe - data to be saved, 
 location - path where file needs to be saved, filename - name of file that need to be saved
 Dataframe write generate a file with multiple part files. That is why this 
@@ -10,10 +11,7 @@ from pyspark.sql.functions import col
 import os
 
 def write_csv_to_location(dataframe, location: str, filename: str) -> None:
-
-
     os.makedirs(location, exist_ok=True)
-
     filePathDestTemp = location + "/tmp"
     dataframe.coalesce(1).write.option("header","true").mode("overwrite").format("csv").save(filePathDestTemp)
 
