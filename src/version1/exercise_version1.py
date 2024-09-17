@@ -14,7 +14,6 @@ Background:
  example run of application: tzwarycz@LCE64920:~/codc_interviews/src/version1$ /usr/bin/python3 /home/tzwarycz/codc_interviews/src/version1/exercise_version1.py file_name.csv 
 
 """
-
 from pyspark.sql import SparkSession
 from utils import write_csv_to_location, filter_data, read_dataset
 import sys
@@ -37,7 +36,6 @@ def main(file_name):
     df_filtered.show()
 
     write_csv_to_location(df_filtered, output_folder, file_name)
-
 
 
 if __name__ == "__main__":
