@@ -12,7 +12,7 @@ from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col,desc
 
 
-filename = "dataset_exercise1.csv"
+file_name = "dataset_exercise1.csv"
 output_folder = "codc-interviews/latest/it_data"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
@@ -27,4 +27,4 @@ df_sorted = df_filtered.orderBy(desc("sales_amount"))
 df_limited = df_sorted.limit(100)
 df_limited.show()
 
-write_csv_to_location(df_limited, output_folder, filename)
+write_csv_to_location(df_limited, output_folder, file_name)

@@ -9,9 +9,10 @@ will concatenate all of the part files into 1 csv.
 import os
 import shutil
 from pyspark.sql.functions import col
+from pyspark.sql import DataFrame
 import os
 
-def write_csv_to_location(dataframe, location: str, filename: str) -> None:
+def write_csv_to_location(dataframe: DataFrame, location: str, filename: str) -> None:
     os.makedirs(location, exist_ok=True)
     filePathDestTemp = location + "/tmp"
     dataframe.coalesce(1).write.option("header","true").mode("overwrite").format("csv").save(filePathDestTemp)
@@ -26,7 +27,7 @@ def write_csv_to_location(dataframe, location: str, filename: str) -> None:
     shutil.rmtree(filePathDestTemp)
 
 
-def filter_data(dataframe):
+def filter_data(dataframe) -> DataFrame:
     
     filtered_df = dataframe.filter((col("country") == "United Kingdom") | (col("country") == "Netherlands"))
     filtered_df = filtered_df.withColumnRenamed("id","client_identifier")\
