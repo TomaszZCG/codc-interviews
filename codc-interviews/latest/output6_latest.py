@@ -7,13 +7,13 @@ from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col, sum, rank, round
 from pyspark.sql.window import Window
 
-filename = "dataset_exercise6.csv"
-output_folder = "codc-interviews/latest/best_salesperson"
+file_name = "dataset_exercise6.csv"
+output_folder = "best_salesperson"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
-df2 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_two.csv')
-df3 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_three.csv')
+df1 = spark.read.option('header', True).csv('dataset_one.csv')
+df2 = spark.read.option('header', True).csv('dataset_two.csv')
+df3 = spark.read.option('header', True).csv('dataset_three.csv')
 
 
 df_joined = df3.join(df2, df3.caller_id == df2.id, "inner")
@@ -31,4 +31,4 @@ df_best_salesperson = df_best_salesperson.withColumn('total_sales', round(df_bes
 
 df_best_salesperson.select("country", "name", "total_sales").show()
 
-write_csv_to_location(df_best_salesperson, output_folder, filename)
+write_csv_to_location(df_best_salesperson, output_folder, file_name)

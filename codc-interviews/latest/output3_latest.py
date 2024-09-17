@@ -9,14 +9,14 @@ from utils_functions import write_csv_to_location
 from pyspark.sql.functions import col, sum, round
 
 
-filename = "dataset_exercise3.csv"
-output_folder = "codc-interviews/latest/department_breakdown"
+file_name = "dataset_exercise3.csv"
+output_folder = "department_breakdown"
 
 # Initialize a SparkSession
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
-df2 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_two.csv')
+df1 = spark.read.option('header', True).csv('dataset_one.csv')
+df2 = spark.read.option('header', True).csv('dataset_two.csv')
 
 df2 = df2.withColumn("sales_amount", col("sales_amount").cast("decimal(9,2)"))
 
@@ -26,10 +26,10 @@ df_group = df_joined.groupBy("area").agg(sum("sales_amount").alias("total"),sum(
                                           sum("calls_successful").alias("total_calls_successful"))
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 df_total = df_group.withColumn("total_calls_made", col("total_calls_made").cast("decimal(9,0)"))\
-                     .withColumn("total_calls_successful", col("total_calls_successful").cast("decimal(9,0)"))  
+                    .withColumn("total_calls_successful", col("total_calls_successful").cast("decimal(9,0)"))  
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 df_total = df_total.withColumn("success_percentage",round((col("total_calls_successful") / col("total_calls_made")) * 100, 2))
 
 df_total.show()
 
-write_csv_to_location(df_total, output_folder, filename)
+write_csv_to_location(df_total, output_folder, file_name)

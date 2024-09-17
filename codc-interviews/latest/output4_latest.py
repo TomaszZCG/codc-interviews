@@ -13,12 +13,12 @@ from pyspark.sql.window import Window
 from pyspark.sql.functions import rank
 
 # Initialize a SparkSession
-filename = "dataset_exercise4.csv"
-output_folder = "codc-interviews/latest/top_3"
+file_name = "dataset_exercise4.csv"
+output_folder = "top_3"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
-df2 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_two.csv')
+df1 = spark.read.option('header', True).csv('dataset_one.csv')
+df2 = spark.read.option('header', True).csv('dataset_two.csv')
 
 df1_filtered = df1.withColumn("success_rate", round(col("calls_successful") / col("calls_made")*100,2)) \
                   .filter(col("success_rate") > 75)
@@ -33,5 +33,4 @@ top_employees = df_ranked.select("name", "area", "sales_amount","success_rate") 
 
 top_employees.show()
 
-
-write_csv_to_location(top_employees, output_folder, filename)
+write_csv_to_location(top_employees, output_folder, file_name)

@@ -13,12 +13,12 @@ from pyspark.sql.functions import col,desc
 
 
 file_name = "dataset_exercise1.csv"
-output_folder = "codc-interviews/latest/it_data"
+output_folder = "it_data"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
-df2 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_two.csv')
-df3 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_three.csv')
+df1 = spark.read.option('header', True).csv('dataset_one.csv')
+df2 = spark.read.option('header', True).csv('dataset_two.csv')
+df3 = spark.read.option('header', True).csv('dataset_three.csv')
 
 df_joined = df1.join(df2, on="id", how="inner")
 df_filtered = df_joined.filter((col("area") == "IT"))

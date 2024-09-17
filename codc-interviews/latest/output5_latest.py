@@ -9,14 +9,14 @@ from pyspark.sql.functions import col, sum, rank
 from pyspark.sql.window import Window
 
 
-filename = "dataset_exercise5.csv"
-output_folder = "codc-interviews/latest/top_3_most_sold_per_department_netherlands"
+file_name = "dataset_exercise5.csv"
+output_folder = "top_3_most_sold_per_department_netherlands"
 # Initialize a SparkSession
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_one.csv')
-df2 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_two.csv')
-df3 = spark.read.option('header', True).csv('codc-interviews/latest/dataset_three.csv')
+df1 = spark.read.option('header', True).csv('dataset_one.csv')
+df2 = spark.read.option('header', True).csv('dataset_two.csv')
+df3 = spark.read.option('header', True).csv('dataset_three.csv')
 
 # Filter data for only the Netherlands
 df3_netherlands = df3.filter(col("country") == "Netherlands")
@@ -38,4 +38,4 @@ df_ranked = df_ranked.select("area", "product_sold", "total_quantity", "rank").o
 
 df_ranked.show()
 
-write_csv_to_location(df_ranked, output_folder, filename)
+write_csv_to_location(df_ranked, output_folder, file_name)
