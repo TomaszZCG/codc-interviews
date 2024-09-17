@@ -27,9 +27,11 @@ def write_csv_to_location(df: DataFrame, location: str, filename: str) -> None:
 
 
 def filter_data(df: DataFrame) -> DataFrame:
-    
+    """
+    Function take dataframe and filter data only for United Kingdom and Netherlands then rename 3 columns
+    """
     filtered_df = df.filter((col("country") == "United Kingdom") | (col("country") == "Netherlands"))
     filtered_df = filtered_df.withColumnRenamed("id","client_identifier")\
-                         .withColumnRenamed("btc_a","bitcoin_address")\
-                         .withColumnRenamed("cc_t", "credit_card_type")
+                             .withColumnRenamed("btc_a","bitcoin_address")\
+                             .withColumnRenamed("cc_t", "credit_card_type")
     return filtered_df
