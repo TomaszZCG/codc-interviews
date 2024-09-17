@@ -40,6 +40,7 @@ def main(file_name):
 
 
 if __name__ == "__main__":
+    """ interpreter will assign the hard-coded string "__main__" to the __name__ variable, """
     """ file name """
     file_name = sys.argv[1]
     """ run the main function """
