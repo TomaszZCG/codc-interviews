@@ -23,3 +23,7 @@ def write_csv_to_location(df: DataFrame, location: str, filename: str) -> None:
         
     shutil.copy(os.path.join(filePathDestTemp, name), os.path.join(location, filename))            
     shutil.rmtree(filePathDestTemp)
+
+def read_dataset(spark, file_name: str) -> DataFrame:
+    df = spark.read.option('header', True).csv(file_name)
+    return df

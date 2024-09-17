@@ -8,17 +8,16 @@ The management teams wants some specific information about the people that are w
 - The output directory should be called **it_data** and you must use PySpark to save only to one **CSV** file.
 """
 from pyspark.sql import SparkSession
-from utils import write_csv_to_location
+from utils import write_csv_to_location, read_dataset
 from pyspark.sql.functions import col,desc
-
 
 file_name = "dataset_exercise1.csv"
 output_folder = "it_data"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('dataset_one.csv')
-df2 = spark.read.option('header', True).csv('dataset_two.csv')
-df3 = spark.read.option('header', True).csv('dataset_three.csv')
+df1 = read_dataset(spark,'dataset_one.csv')
+df2 = read_dataset(spark,'dataset_two.csv')
+df3 = read_dataset(spark,'dataset_three.csv')
 
 df_joined = df1.join(df2, on="id", how="inner")
 df_filtered = df_joined.filter((col("area") == "IT"))
