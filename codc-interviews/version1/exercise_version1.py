@@ -11,11 +11,12 @@ Background:
  some of their financial details to starting reaching out to 
  them for a new marketing push.
 """
+
 from pyspark.sql import SparkSession
 from utils import write_csv_to_location, filter_data, read_dataset
 
 output_folder = "client_data"  
-file_name = "output_ex1.csv"
+file_name = "dataset_three.csv"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
 df1 = read_dataset(spark,'dataset_one.csv')
@@ -24,8 +25,8 @@ df2 = read_dataset(spark,'dataset_two.csv')
 df_joined = df1.join(df2, on="id", how="inner")
 
 df_drop=df_joined.drop("cc_n")\
-                 .drop("first_name")\
-                 .drop("last_name")
+                   .drop("first_name")\
+                   .drop("last_name")
 
 df_filtered = filter_data(df_drop)
 df_filtered.show()
