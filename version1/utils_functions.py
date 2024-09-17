@@ -12,10 +12,10 @@ from pyspark.sql.functions import col
 from pyspark.sql import DataFrame
 import os
 
-def write_csv_to_location(dataframe: DataFrame, location: str, filename: str) -> None:
+def write_csv_to_location(df: DataFrame, location: str, filename: str) -> None:
     os.makedirs(location, exist_ok=True)
     filePathDestTemp = location + "/tmp"
-    dataframe.coalesce(1).write.option("header","true").mode("overwrite").format("csv").save(filePathDestTemp)
+    df.coalesce(1).write.option("header","true").mode("overwrite").format("csv").save(filePathDestTemp)
 
     name = ''
     for fileName in os.listdir(filePathDestTemp):
@@ -27,9 +27,9 @@ def write_csv_to_location(dataframe: DataFrame, location: str, filename: str) ->
     shutil.rmtree(filePathDestTemp)
 
 
-def filter_data(dataframe) -> DataFrame:
+def filter_data(df: DataFrame) -> DataFrame:
     
-    filtered_df = dataframe.filter((col("country") == "United Kingdom") | (col("country") == "Netherlands"))
+    filtered_df = df.filter((col("country") == "United Kingdom") | (col("country") == "Netherlands"))
     filtered_df = filtered_df.withColumnRenamed("id","client_identifier")\
                          .withColumnRenamed("btc_a","bitcoin_address")\
                          .withColumnRenamed("cc_t", "credit_card_type")

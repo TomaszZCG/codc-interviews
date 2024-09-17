@@ -7,13 +7,13 @@ will concatenate all of the part files into 1 csv.
 """
 import os
 import shutil
-from pyspark.sql.functions import col
+from pyspark.sql import DataFrame
 import os
 
-def write_csv_to_location(dataframe, location: str, filename: str) -> None:
+def write_csv_to_location(df: DataFrame, location: str, filename: str) -> None:
     os.makedirs(location, exist_ok=True)
     filePathDestTemp = location + "/tmp"
-    dataframe.coalesce(1).write.option("header","true").mode("overwrite").format("csv").save(filePathDestTemp)
+    df.coalesce(1).write.option("header","true").mode("overwrite").format("csv").save(filePathDestTemp)
 
     name = ''
     for fileName in os.listdir(filePathDestTemp):
