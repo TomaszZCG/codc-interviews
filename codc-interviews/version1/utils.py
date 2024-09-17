@@ -35,3 +35,9 @@ def filter_data(df: DataFrame) -> DataFrame:
                              .withColumnRenamed("btc_a","bitcoin_address")\
                              .withColumnRenamed("cc_t", "credit_card_type")
     return filtered_df
+
+
+def read_dataset(spark, file_name: str) -> DataFrame:
+    """Function take parameter as csv file name and returns data frame with data from file"""
+    df = spark.read.option('header', True).csv(file_name)
+    return df

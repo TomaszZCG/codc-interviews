@@ -3,7 +3,7 @@ Output #6 - **Who is the best overall salesperson per country**
 The output directory should be called **best_salesperson** and you must use PySpark to save only to one **CSV** file.
 """
 from pyspark.sql import SparkSession
-from utils import write_csv_to_location
+from utils import write_csv_to_location, read_dataset
 from pyspark.sql.functions import col, sum, rank, round
 from pyspark.sql.window import Window
 
@@ -11,9 +11,9 @@ file_name = "dataset_exercise6.csv"
 output_folder = "best_salesperson"
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('dataset_one.csv')
-df2 = spark.read.option('header', True).csv('dataset_two.csv')
-df3 = spark.read.option('header', True).csv('dataset_three.csv')
+df1 = read_dataset(spark,'dataset_one.csv')
+df2 = read_dataset(spark,'dataset_two.csv')
+df3 = read_dataset(spark,'dataset_three.csv')
 
 
 df_joined = df3.join(df2, df3.caller_id == df2.id, "inner")

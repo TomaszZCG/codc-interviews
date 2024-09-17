@@ -5,7 +5,7 @@ they also want to see the total percentage of calls_succesfful/calls_made per de
 The amount of money and percentage should be easily readable.
 """
 from pyspark.sql import SparkSession
-from utils import write_csv_to_location
+from utils import write_csv_to_location, read_dataset
 from pyspark.sql.functions import col, sum, round
 
 
@@ -15,8 +15,8 @@ output_folder = "department_breakdown"
 # Initialize a SparkSession
 spark = SparkSession.builder.appName("JoinDatasets").getOrCreate()
 
-df1 = spark.read.option('header', True).csv('dataset_one.csv')
-df2 = spark.read.option('header', True).csv('dataset_two.csv')
+df1 = read_dataset(spark,'dataset_one.csv')
+df2 = read_dataset(spark,'dataset_two.csv')
 
 df2 = df2.withColumn("sales_amount", col("sales_amount").cast("decimal(9,2)"))
 

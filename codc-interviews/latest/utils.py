@@ -25,5 +25,6 @@ def write_csv_to_location(df: DataFrame, location: str, filename: str) -> None:
     shutil.rmtree(filePathDestTemp)
 
 def read_dataset(spark, file_name: str) -> DataFrame:
+    """Function take parameter as csv file name and returns data frame with data from file"""
     df = spark.read.option('header', True).csv(file_name)
     return df
