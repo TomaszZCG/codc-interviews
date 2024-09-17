@@ -5,7 +5,6 @@ location - path where file needs to be saved, filename - name of file that need 
 Dataframe write generate a file with multiple part files. That is why this 
 will concatenate all of the part files into 1 csv. 
 """
-
 import os
 import shutil
 from pyspark.sql.functions import col
