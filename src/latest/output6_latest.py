@@ -16,7 +16,6 @@ df2 = read_dataset(spark,'dataset_two.csv')
 df3 = read_dataset(spark,'dataset_three.csv')
 
 df_joined = df3.join(df2, df3.caller_id == df2.id, "inner")
-
 df_sales_by_country = df_joined.groupBy("country", "name").agg(sum("sales_amount").alias("total_sales"))
 
 window = Window.partitionBy("country").orderBy(col("total_sales").desc())
