@@ -11,7 +11,8 @@ Background:
  some of their financial details to starting reaching out to 
  them for a new marketing push.
 
- example run of application: tzwarycz@LCE64920:~/codc_interviews/src/version1$ /usr/bin/python3 /home/tzwarycz/codc_interviews/src/version1/exercise_version1.py file_name.csv 
+ example run of application: 
+ tzwarycz@LCE64920:~/codc_interviews/src/version1$ /usr/bin/python3 /home/tzwarycz/codc_interviews/src/version1/exercise_version1.py file_name.csv 
 
 """
 from pyspark.sql import SparkSession
