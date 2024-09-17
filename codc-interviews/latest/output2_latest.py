@@ -22,17 +22,15 @@ df_joined = df1.join(df2, on="id", how="inner")
 df_filtered = df_joined.filter((col("area") == "Marketing"))
 
 df_filtered = df_filtered.withColumn("id", df_filtered["id"].cast(IntegerType()))
-
 df_sorted = df_filtered.sort(asc("id"))
-df_sorted = df_sorted.select("id","name","area","address")  #!!!!!!!!!!!!!!!!
-
+df_sorted = df_sorted.select("id","name","area","address")  
 df_splitted = df_sorted.withColumn('postal_code_temp', split(df_sorted['address'], ',').getItem(0)) \
                        .withColumn('city_temp', split(df_sorted['address'], ',').getItem(1)) 
 
 postal_code_pattern = r'(\d{4}\s?[A-Z]{2})'
 
-df_splitted = df_splitted.withColumn("postal_code_check", regexp_extract(col("city_temp"), postal_code_pattern, 0))
-
+df_splitted = df_splitted.withColumn(
+                            "postal_code_check", regexp_extract(col("city_temp"), postal_code_pattern, 0))
 df_splitted = df_splitted.withColumn(
                             "postal_code", 
                             when(col("postal_code_check") == "", col("postal_code_temp")).otherwise(col("city_temp"))) \
